@@ -16,6 +16,7 @@ class Manga {
   final String? imageUrl;
   final List<String> genres;
   final String? synopsis;
+  final String? author;
   final int? totalChapters;
   final int? currentChapter;
   final MangaStatus status;
@@ -32,6 +33,7 @@ class Manga {
     this.imageUrl,
     required this.genres,
     this.synopsis,
+    this.author,
     this.totalChapters,
     this.currentChapter,
     required this.status,
@@ -106,6 +108,7 @@ class Manga {
       imageUrl: data['imageUrl'] as String?,
       genres: List<String>.from(data['genres'] ?? []),
       synopsis: data['synopsis'] as String?,
+      author: String? author,
       totalChapters: data['totalChapters'] as int?,
       currentChapter: data['currentChapter'] as int?,
       status: MangaStatus.values[data['status'] as int],
@@ -122,63 +125,6 @@ class Manga {
   }
 
   // ═══════════════════════════════════════
-  // VERS FIRESTORE
-  // ═══════════════════════════════════════
-  Map<String, dynamic> toFirestore() {
-    return {
-      'malId': malId,
-      'title': title,
-      'imageUrl': imageUrl,
-      'genres': genres,
-      'synopsis': synopsis,
-      'totalChapters': totalChapters,
-      'currentChapter': currentChapter,
-      'status': status.index,
-      'rating': rating,
-      'scanSite': scanSite,
-      'scanBaseUrl': scanBaseUrl,
-      
-      // Conversion DateTime → Timestamp
-      'addedAt': Timestamp.fromDate(addedAt),
-      'updatedAt': updatedAt != null
-          ? Timestamp.fromDate(updatedAt!)
-          : null,
-    };
-  }
-
-  // ═══════════════════════════════════════
-  // MÉTHODES UTILITAIRES
-  // ═══════════════════════════════════════
-  String getChapterUrl() {
-    if (scanBaseUrl == null || currentChapter == null) return '';
-    final slug = title.toLowerCase().replaceAll(' ', '-');
-    return '$scanBaseUrl/manga/$slug/chapitre-$currentChapter/';
-  }
-
-  double? getProgressPercentage() {
-    if (totalChapters == null || 
-        totalChapters == 0 || 
-        currentChapter == null) {
-      return null;
-    }
-    final pct = (currentChapter! / totalChapters!) * 100;
-    return pct.clamp(0, 100);
-  }
-
-  String getStatusLabel() {
-    switch (status) {
-      case MangaStatus.inProgress:
-        return ' En cours';
-      case MangaStatus.done:
-        return ' Terminé';
-      case MangaStatus.toRead:
-        return ' À lire';
-      case MangaStatus.abandoned:
-        return ' Abandonné';
-    }
-  }
-
-  // ═══════════════════════════════════════
   // COPYWITH
   // ═══════════════════════════════════════
   Manga copyWith({
@@ -188,6 +134,7 @@ class Manga {
     String? imageUrl,
     List<String>? genres,
     String? synopsis,
+    String? author,
     int? totalChapters,
     int? currentChapter,
     MangaStatus? status,
@@ -204,6 +151,7 @@ class Manga {
       imageUrl: imageUrl ?? this.imageUrl,
       genres: genres ?? this.genres,
       synopsis: synopsis ?? this.synopsis,
+      author: author ?? this.author,
       totalChapters: totalChapters ?? this.totalChapters,
       currentChapter: currentChapter ?? this.currentChapter,
       status: status ?? this.status,
