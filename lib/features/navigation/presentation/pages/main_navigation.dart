@@ -21,7 +21,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final List<Widget> _screens = const [
     HomeScreen(),
     DiscoverPage(),
-    AnalyticsScreen(), // 👈 Classe modifiée
+    AnalyticsScreen(), 
     ProfileScreen(),
   ];
 
@@ -49,8 +49,8 @@ class _MainNavigationState extends State<MainNavigation> {
             label: 'Découvrir',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_outlined), // 👈 Icône modifiée
-            label: 'Analytics', // 👈 Label modifié
+            icon: Icon(Icons.analytics_outlined), 
+            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

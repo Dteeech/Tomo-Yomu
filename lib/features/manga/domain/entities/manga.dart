@@ -23,8 +23,8 @@ class Manga {
   final double? rating;
   final String scanSite;
   final String? scanBaseUrl;
-  final DateTime addedAt;      // 👈 Type Dart
-  final DateTime? updatedAt;   // 👈 Type Dart
+  final DateTime addedAt;      // Type Dart
+  final DateTime? updatedAt;   // Type Dart
 
   Manga({
     required this.id,
@@ -44,9 +44,8 @@ class Manga {
     this.updatedAt,
   });
 
-  // ═══════════════════════════════════════
   // DEPUIS API JIKAN
-  // ═══════════════════════════════════════
+
   factory Manga.fromJikanApi({
     required Map<String, dynamic> json,
     required String firestoreId,
@@ -89,14 +88,12 @@ class Manga {
       rating: null,  // À définir par l'utilisateur
       scanSite: scanSite,
       scanBaseUrl: scanBaseUrl,
-      addedAt: DateTime.now(),  // 👈 DateTime natif
+      addedAt: DateTime.now(), 
       updatedAt: null,
     );
   }
 
-  // ═══════════════════════════════════════
   // DEPUIS FIRESTORE
-  // ═══════════════════════════════════════
   factory Manga.fromFirestore(
     Map<String, dynamic> data,
     String documentId,
@@ -116,7 +113,7 @@ class Manga {
       scanSite: data['scanSite'] as String,
       scanBaseUrl: data['scanBaseUrl'] as String?,
       
-      // Conversion Timestamp → DateTime
+      // Conversion Timestamp → DateTime (firestore)
       addedAt: (data['addedAt'] as Timestamp).toDate(),
       updatedAt: data['updatedAt'] != null
           ? (data['updatedAt'] as Timestamp).toDate()
@@ -124,9 +121,8 @@ class Manga {
     );
   }
 
-  // ═══════════════════════════════════════
   // COPYWITH
-  // ═══════════════════════════════════════
+
   Manga copyWith({
     String? id,
     int? malId,

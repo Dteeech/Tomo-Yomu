@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:tomoyomu/core/routes/app_routes.dart'; // 👈 Import ajouté
+import 'package:tomoyomu/core/routes/app_routes.dart'; 
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
         Navigator.of(context).pushReplacementNamed(
-          AppRoutes.main, // Route nommée au lieu de '/home'
+          AppRoutes.main, 
         );
       }
     });
@@ -52,33 +52,33 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A2E), 
       body: Center(
-        // Centrage direct
+       
         child: Column(
           mainAxisAlignment:
-              MainAxisAlignment.center, // Centre verticalement
+              MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              '../../assets/animations/splash.json', //Chemin corrigé (depuis pubspec.yaml)
+              '../../assets/animations/splash.json', 
               controller: _controller,
-              width: 200, // Dimension recommandée
+              width: 200, 
               height: 200,
               fit: BoxFit.contain,
               onLoaded: (composition) {
                 // Configure la durée selon l'animation
                 _controller
                   ..duration = composition.duration
-                  ..forward(); // ▶️ Lance l'animation
+                  ..forward();
               },
             ),
             const SizedBox(
-                height: 24), // 👈 Espacement entre animation et texte
+                height: 24), 
             const Text(
               '友読む',
               style: TextStyle(
                 fontSize: 46,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-                letterSpacing: 12, // Espacement entre caractères
+                letterSpacing: 12, 
                 height: 1.5,
               ),
             ),

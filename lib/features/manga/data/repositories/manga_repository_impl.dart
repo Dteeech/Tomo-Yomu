@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../../domain/entities/manga.dart';
 import '../../domain/repositories/manga_repository.dart';
 
@@ -10,47 +9,59 @@ class JikanManagRepository implements MangaRepository {
 
   @override
   Future<List<Manga>> getAllUserMangas() async {
-    // TODO: Implémenter l'appel API Jikan
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
   Future<Manga> getMangaById(String id) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
   Future<void> addManga(Manga manga) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
   Future<void> updateCurrentChapter(String mangaId, String chapter) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
   Future<void> updateStatus(String mangaId, MangaStatus status) async {
+    // TODO: 
     throw UnimplementedError();
   }
-
+  @override 
+  Future<void> updateScanSite(String id, String scanSite) async {
+    // TODO: 
+    throw UnimplementedError();
+  }
   @override
   Future<void> updateRating(String mangaId, double rating) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
   Future<void> deleteManga(String mangaId) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Manga>> searchMangaByTitle(String query) async {
+  Future<List<Manga>> searchMangaFromApiByTitle(String query) async {
+    // TODO: 
     throw UnimplementedError();
   }
 
   @override
-  Future<Manga> getMangaDetails(String jikanId) async {
+  Future<Manga> getMangaDetails(int jikanId) async {
+    // TODO: 
     throw UnimplementedError();
   }
 }

@@ -13,6 +13,6 @@ abstract class MangaRepository {
 
   Future<void> deleteManga(String id);
 
-  Future<List<Manga>> searchMangaFromApi(String query);
-  Future<Manga> getMangaDetail(int malId);
+  Future<List<Manga>> searchMangaFromApiByTitle(String query);
+  Future<Manga> getMangaDetails(int malId);
 }

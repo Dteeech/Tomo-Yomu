@@ -16,7 +16,7 @@ class AnalyticsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.analytics_outlined, // 👈 Icône plus adaptée
+              Icons.analytics_outlined,
               size: 64,
               color: Colors.grey[400],
             ),
