@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
               MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              '../../assets/animations/splash.json', 
+              'assets/animations/splash.json', 
               controller: _controller,
               width: 200, 
               height: 200,
