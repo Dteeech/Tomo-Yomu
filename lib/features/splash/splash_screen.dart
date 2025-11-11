@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:tomoyomu/core/routes/app_routes.dart'; // 👈 Import ajouté
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,19 +22,21 @@ class _SplashScreenState extends State<SplashScreen>
     // Configure le contrôleur d'animation
     _controller = AnimationController(vsync: this);
 
-    // Navigue vers Home après la fin de l'animation
+    // Navigue vers MainNavigation après la fin de l'animation
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _navigateToHome();
+        _navigateToMain();
       }
     });
   }
 
-  void _navigateToHome() {
+  void _navigateToMain() {
     // Petite pause de 500ms après la fin de l'animation
     Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/home');
+        Navigator.of(context).pushReplacementNamed(
+          AppRoutes.main, // Route nommée au lieu de '/home'
+        );
       }
     });
   }
@@ -47,13 +50,19 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E), // 🎨 Bleu nuit
-      body: Column(
-        children: [
-          Center(
-            child: Lottie.asset(
-              '../../../assets/animations/splash.json',
+      backgroundColor: const Color(0xFF1A1A2E), 
+      body: Center(
+        // Centrage direct
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Centre verticalement
+          children: [
+            Lottie.asset(
+              '../../assets/animations/splash.json', //Chemin corrigé (depuis pubspec.yaml)
               controller: _controller,
+              width: 200, // Dimension recommandée
+              height: 200,
+              fit: BoxFit.contain,
               onLoaded: (composition) {
                 // Configure la durée selon l'animation
                 _controller
@@ -61,18 +70,20 @@ class _SplashScreenState extends State<SplashScreen>
                   ..forward(); // ▶️ Lance l'animation
               },
             ),
-          ),
-          const Text(
-            '友読む',
-            style: TextStyle(
-              fontSize: 46,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 12, // Espacement entre caractères
-              height: 1.5,
+            const SizedBox(
+                height: 24), // 👈 Espacement entre animation et texte
+            const Text(
+              '友読む',
+              style: TextStyle(
+                fontSize: 46,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 12, // Espacement entre caractères
+                height: 1.5,
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

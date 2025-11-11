@@ -1,104 +1,130 @@
-// lib/features/discover/presentation/pages/discover_page.dart
+// lib/features/manga/presentation/pages/discover_page.dart
 
 import 'package:flutter/material.dart';
 
-/// Écran "Découvrir"
-/// 
-/// Affiche :
-/// - Top mangas en carousel (section "Recommandés")
-/// - Top mangas en liste (section "Tendances")
 class DiscoverPage extends StatelessWidget {
   const DiscoverPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 🎨 AppBar (version simple pour commencer)
       appBar: AppBar(
         title: const Text('Découvrir'),
-        backgroundColor: const Color(0xFF0D0D1E), // Fond de ta maquette
       ),
+      body: CustomScrollView(
+        slivers: [
+          // Section 1 : Recommandations personnalisées
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.auto_awesome,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Recommandés pour toi',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Basé sur tes goûts et notes',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
 
-      // 📄 Corps de la page
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // 📌 Section 1 : Recommandés
-          _buildRecommendedSection(),
-          
-          const SizedBox(height: 32),
-          
-          // 📌 Section 2 : Tendances
-          _buildTrendingSection(),
+          // Placeholder carousel recommandations
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 200,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 140,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.image, size: 48),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+          // Section 2 : Catalogue complet
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.explore,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Catalogue complet',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+
+          // Placeholder liste catalogue
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return Container(
+                    height: 100,
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text('Manga #${index + 1}'),
+                    ),
+                  );
+                },
+                childCount: 10,
+              ),
+            ),
+          ),
         ],
       ),
-
-      // 🎨 Fond sombre
-      backgroundColor: const Color(0xFF0D0D1E),
-    );
-  }
-
-  // 🎯 Section "Recommandés pour toi"
-  Widget _buildRecommendedSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Titre de section
-        const Text(
-          'Recommandés pour toi',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        
-        const SizedBox(height: 16),
-        
-        // 📦 Placeholder pour le carousel
-        Container(
-          height: 350,
-          color: Colors.grey[800],
-          child: const Center(
-            child: Text(
-              'Carousel ici (prochaine étape)',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // 📊 Section "Tendances du moment"
-  Widget _buildTrendingSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Titre de section
-        const Text(
-          'Tendances du moment',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        
-        const SizedBox(height: 16),
-        
-        // 📦 Placeholder pour la liste
-        Container(
-          height: 400,
-          color: Colors.grey[800],
-          child: const Center(
-            child: Text(
-              'Liste ici (prochaine étape)',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

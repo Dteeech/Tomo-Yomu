@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tomoyomu/features/home/presentation/pages/home_screen.dart';
 import 'package:tomoyomu/features/manga/presentation/pages/discover_page.dart';
+import 'package:tomoyomu/features/navigation/presentation/pages/main_navigation.dart';
 import 'package:tomoyomu/features/splash/splash_screen.dart';
 import 'features/auth/presentation/pages/login_page.dart';
-
+import 'core/routes/app_routes.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,14 +28,8 @@ class MyApp extends StatelessWidget {
       // 🗺️ Configuration des routes
       initialRoute: '/',
       routes: {
-        '/': (context) => const SplashScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/discover': (context) => const DiscoverPage(),
-        // Futures routes :
-        // '/onboarding': (context) => const OnboardingScreen(),
-        // '/manga-details': (context) => const MangaDetailsScreen(),
-        // '/add-manga': (context) => const AddMangaScreen(),
-        // '/discover': (context) => const DiscoverScreen(),
+        AppRoutes.splash: (context) => const SplashScreen(),
+        AppRoutes.main: (context) => const MainNavigation(),
       },
       // 404x
        onUnknownRoute: (settings) {
