@@ -25,17 +25,17 @@ class _SplashScreenState extends State<SplashScreen>
     // Navigue vers MainNavigation après la fin de l'animation
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _navigateToMain();
+        _navigateToOnboarding();
       }
     });
   }
 
-  void _navigateToMain() {
+  void _navigateToOnboarding() {
     // Petite pause de 500ms après la fin de l'animation
     Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
         Navigator.of(context).pushReplacementNamed(
-          AppRoutes.main, 
+          AppRoutes.onboarding, 
         );
       }
     });

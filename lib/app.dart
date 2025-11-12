@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tomoyomu/features/navigation/presentation/pages/main_navigation.dart';
+import 'package:tomoyomu/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:tomoyomu/features/splash/splash_screen.dart';
 
 import 'core/routes/app_routes.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         AppRoutes.splash: (context) => const SplashScreen(),
         AppRoutes.main: (context) => const MainNavigation(),
+        AppRoutes.onboarding: (context) => const OnboardingScreen()
       },
       // 404
        onUnknownRoute: (settings) {
