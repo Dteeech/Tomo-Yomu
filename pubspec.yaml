@@ -1,16 +1,17 @@
 name: tomoyomu
 description: A Flutter Clean Architecture project with Provider
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.4
   http: ^1.5.0
   lottie: ^3.3.2
   provider: ^6.1.1
@@ -24,3 +25,14 @@ flutter:
   uses-material-design: true
   assets:
     - assets/animations/splash.json
+    - assets/images/logo-TomoYomu.png
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo-TomoYomu.png"
+
+  adaptive_icon_background: "#2B2D42"
+  adaptive_icon_foreground: "assets/images/logo-TomoYomu.png"
+
+  remove_alpha_ios: true
