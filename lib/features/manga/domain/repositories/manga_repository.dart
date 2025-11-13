@@ -1,4 +1,4 @@
-import '../entities/manga.dart';
+import '../entities/manga_entity.dart';
 
 abstract class MangaRepository {
   Future<List<Manga>> getAllUserMangas();

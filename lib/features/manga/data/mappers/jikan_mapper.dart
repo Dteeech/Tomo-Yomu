@@ -1,4 +1,4 @@
-import "../../domain/entities/manga.dart";
+import "../../domain/entities/manga_entity.dart";
 
 class JikanMapper {
   static Manga fromJson({

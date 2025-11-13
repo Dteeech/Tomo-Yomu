@@ -4,6 +4,7 @@ import 'package:tomoyomu/features/onboarding/presentation/pages/onboarding_scree
 import 'package:tomoyomu/features/splash/splash_screen.dart';
 
 import 'core/routes/app_routes.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -19,6 +20,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'tomoyomu',
       theme: ThemeData(
+        brightness: Brightness.dark,
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.white, // 👈 Titre AppBar blanc
+            fontSize: 20,
+            fontWeight: FontWeight.normal,
+          ),
+          backgroundColor: Color(0xFF2B2D42),
+          elevation: 0, // Enlève l'ombre
+          centerTitle: true, // Titre centré (optionnel)
+        ),
+        scaffoldBackgroundColor: const Color(0xFF2B2D42),
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
@@ -31,12 +44,12 @@ class MyApp extends StatelessWidget {
         AppRoutes.onboarding: (context) => const OnboardingScreen()
       },
       // 404
-       onUnknownRoute: (settings) {
+      onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (context) => Scaffold(
             appBar: AppBar(title: const Text('Erreur')),
             body: Center(
-              child: Text('Page "${settings.name}" introuvable 🔍'),
+              child: Text('Page "${settings.name}" introuvable'),
             ),
           ),
         );

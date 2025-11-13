@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import '../../domain/entities/manga.dart';
+import '../../domain/entities/manga_entity.dart';
 import '../../domain/repositories/manga_repository.dart';
 
 class JikanManagRepository implements MangaRepository {
