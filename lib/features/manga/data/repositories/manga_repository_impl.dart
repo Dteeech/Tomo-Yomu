@@ -148,8 +148,8 @@ class JikanMangaRepository implements MangaRepository {
     // We don't have a Firestore id when fetching from Jikan; use the mal id as temporary id.
     return Manga.fromJikanApi(
       json: data,
-      firestoreId: jikanId.toString(),
-      scanSite: 'jikan',
+      firestoreId: null,
+      scanSite: null,
       scanBaseUrl: null,
     );
   }

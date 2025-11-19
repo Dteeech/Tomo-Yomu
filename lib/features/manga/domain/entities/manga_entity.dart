@@ -5,7 +5,7 @@
 enum MangaStatus { inProgress, done, toRead, abandoned }
 
 class Manga {
-  final String id;
+  final String? id;
   final int malId;
   final String title;
   final String? imageUrl;
@@ -16,7 +16,7 @@ class Manga {
   final int? currentChapter;
   final MangaStatus status;
   final double? rating;
-  final String scanSite;
+  final String? scanSite;
   final String? scanBaseUrl;
   final DateTime addedAt; // Type Dart
   final DateTime? updatedAt; // Type Dart
@@ -33,7 +33,7 @@ class Manga {
     this.currentChapter,
     required this.status,
     this.rating,
-    required this.scanSite,
+    this.scanSite,
     this.scanBaseUrl,
     required this.addedAt,
     this.updatedAt,
@@ -43,10 +43,10 @@ class Manga {
 
   factory Manga.fromJikanApi({
     required Map<String, dynamic> json,
-    required String firestoreId,
-    required String scanSite,
-    String? scanBaseUrl,
-    MangaStatus? initialStatus,
+    required String? firestoreId,
+    required String? scanSite,
+    required String? scanBaseUrl,
+    required MangaStatus? initialStatus,
   }) {
     // Extraction image URL (priorité large > default)
     final images = json['images']?['jpg'];
