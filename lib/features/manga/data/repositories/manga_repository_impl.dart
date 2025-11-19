@@ -72,6 +72,7 @@ class MangaRepositoryImpl implements MangaRepository {
     return localDataSource.updateStatus(id, status);
   }
 }
+
 class JikanMangaRepository implements MangaRepository {
   final http.Client httpClient;
 
@@ -79,53 +80,55 @@ class JikanMangaRepository implements MangaRepository {
 
   @override
   Future<List<Manga>> getAllUserMangas() async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<Manga> getMangaById(String id) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<void> addManga(Manga manga) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<void> updateCurrentChapter(String mangaId, String chapter) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<void> updateStatus(String mangaId, MangaStatus status) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
-  @override 
+
+  @override
   Future<void> updateScanSite(String id, String scanSite) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
+
   @override
   Future<void> updateRating(String mangaId, double rating) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<void> deleteManga(String mangaId) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
   @override
   Future<List<Manga>> searchMangaFromApiByTitle(String query) async {
-    // TODO: 
+    // TODO:
     throw UnimplementedError();
   }
 
@@ -138,7 +141,8 @@ class JikanMangaRepository implements MangaRepository {
       throw Exception('Jikan API error: ${response.statusCode}');
     }
 
-    final Map<String, dynamic> body = jsonDecode(response.body) as Map<String, dynamic>;
+    final Map<String, dynamic> body =
+        jsonDecode(response.body) as Map<String, dynamic>;
     final data = body['data'] as Map<String, dynamic>?;
     if (data == null) {
       throw Exception('Invalid Jikan response for id $jikanId');
@@ -151,6 +155,7 @@ class JikanMangaRepository implements MangaRepository {
       firestoreId: null,
       scanSite: null,
       scanBaseUrl: null,
+      initialStatus: MangaStatus.toRead,
     );
   }
 }

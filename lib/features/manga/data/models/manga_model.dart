@@ -1,7 +1,7 @@
 import '../../domain/entities/manga_entity.dart';
 
 class MangaModel {
-  final String id;
+  final String? id;
   final int malId;
   final String title;
   final String? imageUrl;
@@ -12,13 +12,13 @@ class MangaModel {
   final int? currentChapter;
   final int statusIndex;
   final double? rating;
-  final String scanSite;
+  final String? scanSite;
   final String? scanBaseUrl;
   final DateTime addedAt;
   final DateTime? updatedAt;
 
   MangaModel({
-    required this.id,
+    this.id,
     required this.malId,
     required this.title,
     this.imageUrl,
@@ -29,7 +29,7 @@ class MangaModel {
     this.currentChapter,
     required this.statusIndex,
     this.rating,
-    required this.scanSite,
+    this.scanSite,
     this.scanBaseUrl,
     required this.addedAt,
     this.updatedAt,
