@@ -105,7 +105,7 @@ class Manga {
       imageUrl: data['imageUrl'] as String?,
       genres: List<String>.from(data['genres'] ?? []),
       synopsis: data['synopsis'] as String?,
-      author: String? author,
+      author: data['author'] as String?,
       totalChapters: data['totalChapters'] as int?,
       currentChapter: data['currentChapter'] as int?,
       status: MangaStatus.values[data['status'] as int],
