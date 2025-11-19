@@ -2,12 +2,7 @@
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum MangaStatus {
-  inProgress,
-  done,
-  toRead,
-  abandoned
-}
+enum MangaStatus { inProgress, done, toRead, abandoned }
 
 class Manga {
   final String id;
@@ -23,8 +18,8 @@ class Manga {
   final double? rating;
   final String scanSite;
   final String? scanBaseUrl;
-  final DateTime addedAt;      // Type Dart
-  final DateTime? updatedAt;   // Type Dart
+  final DateTime addedAt; // Type Dart
+  final DateTime? updatedAt; // Type Dart
 
   Manga({
     required this.id,
@@ -55,26 +50,22 @@ class Manga {
   }) {
     // Extraction image URL (priorité large > default)
     final images = json['images']?['jpg'];
-    final imageUrl = images?['large_image_url'] ?? 
-                     images?['image_url'];
+    final imageUrl = images?['large_image_url'] ?? images?['image_url'];
 
     // Extraction genres avec filtrage
     final rawGenres = json['genres'] as List?;
     final genres = rawGenres
-        ?.map((g) => g['name'] as String)
-        .where((name) => name.isNotEmpty)
-        .toList() 
-        ?? [];
+            ?.map((g) => g['name'] as String)
+            .where((name) => name.isNotEmpty)
+            .toList() ??
+        [];
 
     // Extraction chapitres (peut être null si en cours)
     final chapters = json['chapters'] as int?;
 
     // Synopsis avec nettoyage
     final rawSynopsis = json['synopsis'] as String?;
-    final synopsis = rawSynopsis?.trim().isEmpty == true 
-        ? null 
-        : rawSynopsis;
-
+    final synopsis = rawSynopsis?.trim().isEmpty == true ? null : rawSynopsis;
     return Manga(
       id: firestoreId,
       malId: json['mal_id'] as int,
@@ -83,12 +74,12 @@ class Manga {
       genres: genres,
       synopsis: synopsis,
       totalChapters: chapters,
-      currentChapter: null,  // À définir par l'utilisateur
+      currentChapter: null, // À définir par l'utilisateur
       status: initialStatus ?? MangaStatus.toRead,
-      rating: null,  // À définir par l'utilisateur
+      rating: null, // À définir par l'utilisateur
       scanSite: scanSite,
       scanBaseUrl: scanBaseUrl,
-      addedAt: DateTime.now(), 
+      addedAt: DateTime.now(),
       updatedAt: null,
     );
   }
@@ -112,7 +103,7 @@ class Manga {
       rating: (data['rating'] as num?)?.toDouble(),
       scanSite: data['scanSite'] as String,
       scanBaseUrl: data['scanBaseUrl'] as String?,
-      
+
       // Conversion Timestamp → DateTime (firestore)
       addedAt: (data['addedAt'] as Timestamp).toDate(),
       updatedAt: data['updatedAt'] != null
