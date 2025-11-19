@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../domain/entities/manga_entity.dart';
 import '../../domain/repositories/manga_repository.dart';
@@ -130,7 +131,26 @@ class JikanMangaRepository implements MangaRepository {
 
   @override
   Future<Manga> getMangaDetails(int jikanId) async {
-    // TODO: 
-    throw UnimplementedError();
+    final url = Uri.parse('https://api.jikan.moe/v4/manga/$jikanId');
+    final response = await httpClient.get(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Jikan API error: ${response.statusCode}');
+    }
+
+    final Map<String, dynamic> body = jsonDecode(response.body) as Map<String, dynamic>;
+    final data = body['data'] as Map<String, dynamic>?;
+    if (data == null) {
+      throw Exception('Invalid Jikan response for id $jikanId');
+    }
+
+    // Use the existing factory from entity to build a Manga.
+    // We don't have a Firestore id when fetching from Jikan; use the mal id as temporary id.
+    return Manga.fromJikanApi(
+      json: data,
+      firestoreId: jikanId.toString(),
+      scanSite: 'jikan',
+      scanBaseUrl: null,
+    );
   }
 }
