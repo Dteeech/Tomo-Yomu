@@ -1,3 +1,5 @@
+import 'package:http/http.dart' as http;
+
 import '../../domain/entities/manga_entity.dart';
 import '../../domain/repositories/manga_repository.dart';
 import '../datasources/manga_local_data_source.dart';
@@ -69,14 +71,10 @@ class MangaRepositoryImpl implements MangaRepository {
     return localDataSource.updateStatus(id, status);
   }
 }
-import 'package:http/http.dart' as http;
-import '../../domain/entities/manga_entity.dart';
-import '../../domain/repositories/manga_repository.dart';
-
-class JikanManagRepository implements MangaRepository {
+class JikanMangaRepository implements MangaRepository {
   final http.Client httpClient;
 
-  JikanManagRepository({required this.httpClient});
+  JikanMangaRepository({required this.httpClient});
 
   @override
   Future<List<Manga>> getAllUserMangas() async {

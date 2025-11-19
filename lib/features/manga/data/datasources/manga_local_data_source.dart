@@ -1,3 +1,4 @@
+import '../../domain/entities/manga_entity.dart';
 import '../models/manga_model.dart';
 
 abstract class MangaLocalDataSource {
@@ -7,7 +8,7 @@ abstract class MangaLocalDataSource {
   Future<List<MangaModel>> getAllMangas();
   Future<void> updateCurrentChapter(String id, int? chapter);
   Future<void> updateRating(String id, double rating);
-  Future<void> updateStatus(String id, int statusIndex);
+  Future<void> updateStatus(String id, MangaStatus status);
   Future<void> updateScanSite(String id, String scanSite);
 }
 
