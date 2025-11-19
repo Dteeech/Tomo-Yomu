@@ -22,7 +22,7 @@ class Manga {
   final DateTime? updatedAt; // Type Dart
 
   Manga({
-    required this.id,
+    this.id,
     required this.malId,
     required this.title,
     this.imageUrl,
