@@ -15,4 +15,5 @@ abstract class MangaRepository {
 
   Future<List<Manga>> searchMangaFromApiByTitle(String query);
   Future<Manga> getMangaDetails(int malId);
+  
 }

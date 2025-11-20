@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "708850588662",
+    "project_id": "tomoyomu",
+    "storage_bucket": "tomoyomu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708850588662:android:0d54bc8672cd8a488c45d7",
+        "android_client_info": {
+          "package_name": "tomoyomu.com.tomoyomu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl76nZhI7F6W7IJK8jV0G3Cm2-ClsNP3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

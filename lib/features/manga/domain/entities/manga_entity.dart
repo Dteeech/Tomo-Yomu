@@ -1,7 +1,3 @@
-// lib/features/manga/domain/entities/manga.dart
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 enum MangaStatus { inProgress, done, toRead, abandoned }
 
 class Manga {
@@ -18,8 +14,8 @@ class Manga {
   final double? rating;
   final String? scanSite;
   final String? scanBaseUrl;
-  final DateTime addedAt; // Type Dart
-  final DateTime? updatedAt; // Type Dart
+  final DateTime addedAt;
+  final DateTime? updatedAt;
 
   Manga({
     this.id,
@@ -38,81 +34,6 @@ class Manga {
     required this.addedAt,
     this.updatedAt,
   });
-
-  // DEPUIS API JIKAN
-
-  factory Manga.fromJikanApi({
-    required Map<String, dynamic> json,
-    required String? firestoreId,
-    required String? scanSite,
-    required String? scanBaseUrl,
-    required MangaStatus? initialStatus,
-  }) {
-    // Extraction image URL (priorité large > default)
-    final images = json['images']?['jpg'];
-    final imageUrl = images?['large_image_url'] ?? images?['image_url'];
-
-    // Extraction genres avec filtrage
-    final rawGenres = json['genres'] as List?;
-    final genres = rawGenres
-            ?.map((g) => g['name'] as String)
-            .where((name) => name.isNotEmpty)
-            .toList() ??
-        [];
-
-    // Extraction chapitres (peut être null si en cours)
-    final chapters = json['chapters'] as int?;
-
-    // Synopsis avec nettoyage
-    final rawSynopsis = json['synopsis'] as String?;
-    final synopsis = rawSynopsis?.trim().isEmpty == true ? null : rawSynopsis;
-    return Manga(
-      id: firestoreId,
-      malId: json['mal_id'] as int,
-      title: json['title'] as String,
-      imageUrl: imageUrl,
-      genres: genres,
-      synopsis: synopsis,
-      totalChapters: chapters,
-      currentChapter: null, // À définir par l'utilisateur
-      status: initialStatus ?? MangaStatus.toRead,
-      rating: null, // À définir par l'utilisateur
-      scanSite: scanSite,
-      scanBaseUrl: scanBaseUrl,
-      addedAt: DateTime.now(),
-      updatedAt: null,
-    );
-  }
-
-  // DEPUIS FIRESTORE
-  factory Manga.fromFirestore(
-    Map<String, dynamic> data,
-    String documentId,
-  ) {
-    return Manga(
-      id: documentId,
-      malId: data['malId'] as int,
-      title: data['title'] as String,
-      imageUrl: data['imageUrl'] as String?,
-      genres: List<String>.from(data['genres'] ?? []),
-      synopsis: data['synopsis'] as String?,
-      author: data['author'] as String?,
-      totalChapters: data['totalChapters'] as int?,
-      currentChapter: data['currentChapter'] as int?,
-      status: MangaStatus.values[data['status'] as int],
-      rating: (data['rating'] as num?)?.toDouble(),
-      scanSite: data['scanSite'] as String,
-      scanBaseUrl: data['scanBaseUrl'] as String?,
-
-      // Conversion Timestamp → DateTime (firestore)
-      addedAt: (data['addedAt'] as Timestamp).toDate(),
-      updatedAt: data['updatedAt'] != null
-          ? (data['updatedAt'] as Timestamp).toDate()
-          : null,
-    );
-  }
-
-  // COPYWITH
 
   Manga copyWith({
     String? id,
