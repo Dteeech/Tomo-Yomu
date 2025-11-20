@@ -18,9 +18,6 @@ class OnboardingHeader extends StatelessWidget {
         children: [
           // Logo TomoYomu
           _buildLogo(),
-
-          // Bouton "Passer" (conditionnel)
-          _buildSkipButton(provider),
         ],
       ),
     );

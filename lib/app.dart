@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:tomoyomu/features/manga/data/repositories/jikan_repository_impl.dart';
+import 'package:tomoyomu/features/manga/domain/entities/manga_entity.dart';
+import 'package:tomoyomu/features/manga/presentation/pages/manga_details_page.dart';
 import 'package:tomoyomu/features/manga/presentation/providers/discover_provider.dart';
 import 'package:tomoyomu/features/navigation/presentation/pages/main_navigation.dart';
 import 'package:tomoyomu/features/onboarding/presentation/pages/onboarding_screen.dart';
@@ -10,7 +12,6 @@ import 'package:tomoyomu/features/splash/splash_screen.dart';
 import 'core/routes/app_routes.dart';
 
 class MyApp extends StatelessWidget {
-
   final http.Client httpClient;
 
   const MyApp({
@@ -20,18 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => DiscoverProvider(
             repository: JikanMangaRepositoryImpl(
-              httpClient: httpClient, 
+              httpClient: httpClient,
             ),
           ),
         ),
       ],
-      
       child: MaterialApp(
         title: 'tomoyomu',
         theme: ThemeData(
@@ -52,17 +51,39 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        routes: {
-          AppRoutes.splash: (context) => const SplashScreen(),
-          AppRoutes.main: (context) => const MainNavigation(),
-          AppRoutes.onboarding: (context) => const OnboardingScreen(),
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case AppRoutes.splash:
+              return MaterialPageRoute(builder: (_) => const SplashScreen());
+
+            case AppRoutes.onboarding:
+              return MaterialPageRoute(
+                  builder: (_) => const OnboardingScreen());
+
+            case AppRoutes.main:
+              return MaterialPageRoute(builder: (_) => const MainNavigation());
+
+            case AppRoutes.mangaDetail: // NOUVELLE ROUTE
+              final manga = settings.arguments as Manga; // Récupère l'argument
+              return MaterialPageRoute(
+                builder: (_) => MangaDetailPage(manga: manga),
+              );
+
+            default:
+              return MaterialPageRoute(
+                builder: (_) => Scaffold(
+                  body:
+                      Center(child: Text('Route inconnue : ${settings.name}')),
+                ),
+              );
+          }
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
-            builder: (context) => Scaffold(
+            builder: (_) => Scaffold(
               appBar: AppBar(title: const Text('Erreur')),
               body: Center(
-                child: Text('Page "${settings.name}" introuvable'),
+                child: Text('Route inconnue : ${settings.name}'),
               ),
             ),
           );

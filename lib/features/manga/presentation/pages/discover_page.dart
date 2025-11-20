@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tomoyomu/core/routes/app_routes.dart';
+import 'package:tomoyomu/features/manga/domain/entities/manga_entity.dart';
 import '../providers/discover_provider.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -9,6 +11,14 @@ class DiscoverPage extends StatefulWidget {
 
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();
+}
+
+void _navigateToDetail(BuildContext context, Manga manga) {
+  Navigator.pushNamed(
+    context,
+    AppRoutes.mangaDetail,
+    arguments: manga, // 📦 Passe l'objet complet
+  );
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
@@ -140,56 +150,62 @@ class _DiscoverPageState extends State<DiscoverPage> {
       itemCount: provider.topMangas.take(10).length,
       itemBuilder: (context, index) {
         final manga = provider.topMangas[index];
-        return Container(
-          width: 140,
-          margin: const EdgeInsets.only(right: 12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            image: manga.imageUrl != null
-                ? DecorationImage(
-                    image: NetworkImage(manga.imageUrl!),
-                    fit: BoxFit.cover,
-                  )
-                : null,
-            color: manga.imageUrl == null ? Colors.grey[300] : null,
-          ),
+
+        return GestureDetector(
+          // Intercepte les taps
+          onTap: () => _navigateToDetail(context, manga),
+
           child: Container(
+            width: 140,
+            margin: const EdgeInsets.only(right: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent,
-                  Colors.black.withOpacity(0.7),
-                ],
-              ),
+              image: manga.imageUrl != null
+                  ? DecorationImage(
+                      image: NetworkImage(manga.imageUrl!),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
+              color: manga.imageUrl == null ? Colors.grey[300] : null,
             ),
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  manga.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.7),
+                  ],
                 ),
-                if (manga.rating != null)
+              ),
+              alignment: Alignment.bottomLeft,
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    '⭐ ${manga.rating!.toStringAsFixed(1)}',
+                    manga.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 11,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-              ],
+                  if (manga.rating != null)
+                    Text(
+                      '⭐ ${manga.rating!.toStringAsFixed(1)}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         );
@@ -270,11 +286,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ? Text('⭐ ${manga.rating!.toStringAsFixed(1)}')
                     : null,
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Détails de ${manga.title}')),
-                  );
-                },
+                onTap: () => _navigateToDetail(context, manga),
               ),
             );
           },
