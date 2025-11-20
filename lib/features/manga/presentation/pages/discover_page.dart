@@ -242,7 +242,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
             return Container(
               margin: const EdgeInsets.only(bottom: 12),
               decoration: BoxDecoration(
-                color: Colors.grey[850],
+                color: const Color(0xFF252541),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ListTile(
